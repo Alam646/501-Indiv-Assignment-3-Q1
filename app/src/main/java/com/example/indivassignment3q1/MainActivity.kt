@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-// import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -58,7 +58,6 @@ fun GreetingPreview() {
 @Composable
 fun WeightSplitLayout(modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxSize()) {
-        // 25% width section
         Box(
             modifier = Modifier
                 .weight(0.25f)
@@ -69,22 +68,47 @@ fun WeightSplitLayout(modifier: Modifier = Modifier) {
         ) {
             Text(text = "25% Width")
         }
-
-        // 75% width section
         Box(
             modifier = Modifier
                 .weight(0.75f)
                 .fillMaxHeight()
-                // .background(Color.LightGray) // Original background for this Box
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
-
+                Box(
+                    modifier = Modifier
+                        .weight(2f)
+                        .fillMaxWidth()
+                        .background(Color.Green)
+                        .padding(8.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Child 1 (20%)")
+                }
+                Box(
+                    modifier = Modifier
+                        .weight(3f)
+                        .fillMaxWidth()
+                        .background(Color.Blue)
+                        .padding(8.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Child 2 (30%)", color = Color.White)
+                }
+                Box(
+                    modifier = Modifier
+                        .weight(5f)
+                        .fillMaxWidth()
+                        .background(Color.Yellow)
+                        .padding(8.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Child 3 (50%)")
+                }
             }
         }
     }
 }
 
-// Preview for the WeightSplitLayout
 @Preview(showBackground = true, widthDp = 400, heightDp = 300)
 @Composable
 fun WeightSplitLayoutPreview_Step1() {

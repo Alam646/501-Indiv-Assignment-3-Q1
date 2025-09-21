@@ -28,39 +28,29 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             IndivAssignment3Q1Theme {
+                // Scaffold provides a basic structure for the screen,
+                // and innerPadding ensures content isn't obscured by system bars.
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    // WeightSplitLayout is the main content of our screen.
+                    WeightSplitLayout(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    IndivAssignment3Q1Theme {
-        Greeting("Android")
-    }
-}
 
 @Composable
 fun WeightSplitLayout(modifier: Modifier = Modifier) {
+    // Row is used to arrange children horizontally.
+    // fillMaxSize ensures the Row takes up all available screen space provided by its parent.
     Row(modifier = modifier.fillMaxSize()) {
+        // This Box represents the first section, taking 25% of the available width.
+        // The weight modifier distributes space proportionally among siblings.
         Box(
             modifier = Modifier
-                .weight(0.25f)
+                .weight(0.25f) // Allocates 25% of the Row's width to this Box
                 .fillMaxHeight()
                 .background(Color.Red)
                 .padding(8.dp),
@@ -68,15 +58,22 @@ fun WeightSplitLayout(modifier: Modifier = Modifier) {
         ) {
             Text(text = "25% Width")
         }
+
+        // second section, taking the remaining 75% of the width.
         Box(
             modifier = Modifier
-                .weight(0.75f)
+                .weight(0.75f) // Allocates 75% of the Row's width.
                 .fillMaxHeight()
+
         ) {
+            // Column is used to arrange children vertically within the 75% section.
+            // fillMaxSize ensures the Column uses all space within its parent Box.
             Column(modifier = Modifier.fillMaxSize()) {
+                // This Box is the first child of the Column.
+                // It's given a weight of 2f, meaning it will take 2 parts of the total (2+3+5=10) vertical space.
                 Box(
                     modifier = Modifier
-                        .weight(2f)
+                        .weight(2f) // Takes 20% of the Column's height.
                         .fillMaxWidth()
                         .background(Color.Green)
                         .padding(8.dp),
@@ -84,9 +81,10 @@ fun WeightSplitLayout(modifier: Modifier = Modifier) {
                 ) {
                     Text(text = "Child 1 (20%)")
                 }
+                // Second child of the Column, weighted to be proportionally larger than the first.
                 Box(
                     modifier = Modifier
-                        .weight(3f)
+                        .weight(3f) // Takes 3/10 30% of the Column's height.
                         .fillMaxWidth()
                         .background(Color.Blue)
                         .padding(8.dp),
@@ -94,9 +92,10 @@ fun WeightSplitLayout(modifier: Modifier = Modifier) {
                 ) {
                     Text(text = "Child 2 (30%)", color = Color.White)
                 }
+                // Third child of the Column, weighted to be the largest.
                 Box(
                     modifier = Modifier
-                        .weight(5f)
+                        .weight(5f) // Takes 50% of the Column's height.
                         .fillMaxWidth()
                         .background(Color.Yellow)
                         .padding(8.dp),
@@ -109,9 +108,10 @@ fun WeightSplitLayout(modifier: Modifier = Modifier) {
     }
 }
 
+
 @Preview(showBackground = true, widthDp = 400, heightDp = 300)
 @Composable
-fun WeightSplitLayoutPreview_Step1() {
+fun WeightSplitLayoutPreview() { // Renamed from WeightSplitLayoutPreview_Step1
     IndivAssignment3Q1Theme {
         WeightSplitLayout()
     }
